@@ -1,0 +1,8 @@
+---
+# make sure docker is running
+
+- name: ensure docker service is started
+  become: true
+  service:
+    name: docker
+    state: started
