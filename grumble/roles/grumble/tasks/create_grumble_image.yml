@@ -1,0 +1,18 @@
+---
+# these tasks create a grumble docker image
+
+- name: create temporary build directory
+  ansible.builtin.file:
+    path: /tmp/grumble-docker-image-build
+    state: directory
+    mode: "0700"
+- name: git checkout latest grumble version
+  ansible.builtin.git:
+    repo: "https://github.com/mumble-voip/grumble.git"
+    dest: /tmp/grumble-docker-image-build
+- name: build container image
+  docker_image:
+    name: grumble
+    build:
+      path: /tmp/grumble-docker-image-build/Dockerfile
+    source: build

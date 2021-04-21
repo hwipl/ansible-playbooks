@@ -1,0 +1,13 @@
+---
+# These tasks start the grumble docker container
+
+- name: ensure container is started
+  community.docker.docker_container:
+    container_default_behavior: compatibility
+    name: grumble
+    image: grumble
+    volumes:
+      - "{{ ansible_env.HOME }}/.grumble:/data"
+    ports:
+      - "64738:64738/tcp"
+      - "64738:64738/udp"
