@@ -1,0 +1,7 @@
+---
+- name: create and start grumble servers in docker containers
+  hosts: grumble_servers
+
+  roles:
+    - docker
+    - grumble
