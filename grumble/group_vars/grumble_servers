@@ -1,0 +1,4 @@
+---
+# grumble container execution variables:
+# working directory/docker volume directory
+grumble_dir: "{{ ansible_env.HOME }}/.grumble"

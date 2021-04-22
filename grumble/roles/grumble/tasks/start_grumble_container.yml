@@ -7,7 +7,7 @@
     name: grumble
     image: grumble
     volumes:
-      - "{{ ansible_env.HOME }}/.grumble:/data"
+      - "{{ grumble_dir }}:/data"
     ports:
       - "64738:64738/tcp"
       - "64738:64738/udp"
