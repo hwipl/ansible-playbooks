@@ -6,3 +6,4 @@ grumble_dir: "{{ ansible_env.HOME }}/.grumble"
 # container image creation variables:
 # git repository, build directory, dockerfile (within build directory)
 grumble_repo: "https://github.com/mumble-voip/grumble.git"
+image_build_dir: /tmp/grumble-docker-image-build
