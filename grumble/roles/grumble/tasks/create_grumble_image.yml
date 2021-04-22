@@ -8,7 +8,7 @@
     mode: "0700"
 - name: git checkout latest grumble version
   ansible.builtin.git:
-    repo: "https://github.com/mumble-voip/grumble.git"
+    repo: "{{ grumble_repo }}"
     dest: /tmp/grumble-docker-image-build
 - name: build container image
   docker_image:
