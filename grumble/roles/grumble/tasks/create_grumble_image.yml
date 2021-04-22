@@ -14,5 +14,5 @@
   docker_image:
     name: grumble
     build:
-      path: /tmp/grumble-docker-image-build/Dockerfile
+      path: "{{ dockerfile }}"
     source: build
