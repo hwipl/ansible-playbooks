@@ -1,0 +1,7 @@
+---
+# these tasks configure the openvpn client
+
+- name: create openvpn client config file
+  template:
+    src: client.conf.j2
+    dest: "/etc/openvpn/client/{{ client }}.conf"
