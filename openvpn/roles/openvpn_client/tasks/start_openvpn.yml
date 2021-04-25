@@ -1,0 +1,8 @@
+---
+# these tasks start the openvpn client connection
+
+- name: start openvpn connection
+  become: true
+  service:
+    name: "openvpn-client@{{ client }}"
+    state: started
