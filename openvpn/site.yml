@@ -1,0 +1,6 @@
+---
+- name: create and start openvpn clients
+  hosts: openvpn_clients
+
+  roles:
+    - openvpn_client
