@@ -8,3 +8,14 @@
     owner: openvpn
     group: network
     mode: '0600'
+- name: copy certificates and keys
+  ansible.builtin.copy:
+    src: "{{ item.src }}"
+    dest: "/etc/openvpn/client/{{ item.dest }}"
+    owner: openvpn
+    group: network
+    mode: '0600'
+  loop:
+    - {src: "{{ ca_cert }}", dest: "ca.crt"}
+    - {src: "{{ client_cert }}", dest: "{{ client }}.crt"}
+    - {src: "{{ client_key }}", dest: "{{ client }}.key"}
