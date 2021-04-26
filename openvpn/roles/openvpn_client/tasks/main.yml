@@ -1,0 +1,4 @@
+---
+- include: install_openvpn.yml
+- include: setup_openvpn.yml
+- include: start_openvpn.yml
