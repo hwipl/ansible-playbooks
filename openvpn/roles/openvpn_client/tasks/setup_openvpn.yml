@@ -5,3 +5,6 @@
   template:
     src: client.conf.j2
     dest: "/etc/openvpn/client/{{ client }}.conf"
+    owner: openvpn
+    group: network
+    mode: '0600'
