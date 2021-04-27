@@ -1,0 +1,10 @@
+---
+# these tasks configure the wireguard client
+
+- name: create wireguard client config file
+  template:
+    src: wg.conf.j2
+    dest: "/etc/wireguard/{{ interface }}.conf"
+    owner: root
+    group: root
+    mode: '0600'

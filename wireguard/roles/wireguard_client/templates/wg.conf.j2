@@ -1,0 +1,9 @@
+[Interface]
+PrivateKey = {{ client_private_key }}
+Address = {{ client_address }}
+
+[Peer]
+PublicKey = {{ server_public_key }}
+Endpoint = {{ server_address }}
+AllowedIPs = {{ server_allowed_ips }}
+PersistentKeepalive = 15
