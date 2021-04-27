@@ -1,0 +1,8 @@
+---
+# these tasks start the wireguard client connection
+
+- name: start wireguard connection
+  become: true
+  service:
+    name: "wg-quick@{{ interface }}"
+    state: started
