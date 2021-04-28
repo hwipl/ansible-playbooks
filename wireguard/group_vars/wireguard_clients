@@ -1,0 +1,14 @@
+---
+# wireguard client variables
+
+# wireguard interface
+interface: wg0
+
+# client info (note: do not use this key!)
+client_private_key: yAnz5TF+lXXJte14tji3zlMNq+hd2rYUIgJBgB3fBmk=
+client_address: 192.168.1.2/24
+
+# server info (note: do not use this key!)
+server_public_key: xTIBA5rboUvnH4htodjb6e697QjLERt1NAB4mZqp8Dg=
+server_address: 10.0.0.1:51820
+server_allowed_ips: 192.168.1.0/24
