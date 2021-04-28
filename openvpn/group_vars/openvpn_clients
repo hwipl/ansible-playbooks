@@ -1,0 +1,14 @@
+---
+# openvpn client variables
+
+# server connection info
+server_address: localhost
+server_port: 12345
+
+# client name
+client: client
+
+# certificate variables
+ca_cert: ca.crt
+client_cert: client.crt
+client_key: client.key
