@@ -1,7 +1,7 @@
 ---
 # These tasks start the grumble docker container
 
-- name: ensure container is started
+- name: Ensure container is started
   community.docker.docker_container:
     container_default_behavior: compatibility
     name: grumble

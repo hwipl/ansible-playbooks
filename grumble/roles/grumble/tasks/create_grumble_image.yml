@@ -1,16 +1,16 @@
 ---
 # these tasks create a grumble docker image
 
-- name: create temporary build directory
+- name: Create temporary build directory
   ansible.builtin.file:
     path: "{{ image_build_dir }}"
     state: directory
     mode: "0700"
-- name: git checkout latest grumble version
+- name: Checkout latest grumble version
   ansible.builtin.git:
     repo: "{{ grumble_repo }}"
     dest: "{{ image_build_dir }}"
-- name: build container image
+- name: Build container image
   docker_image:
     name: grumble
     build:
