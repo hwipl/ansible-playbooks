@@ -1,20 +1,20 @@
 ---
 # these tasks connect to an openvpn server
 
-- name: start openvpn vpn connection
+- name: Start openvpn vpn connection
   hosts: localhost
   vars:
-    - openvpn_dir: "{{ ansible_env.HOME }}/openvpn"
-    - openvpn_conf: "{{ openvpn_dir }}/client.ovpn"
+    openvpn_dir: "{{ ansible_env.HOME }}/openvpn"
+    openvpn_conf: "{{ openvpn_dir }}/client.ovpn"
 
   tasks:
-    - name: install openvpn
+    - name: Install openvpn
       become: true
       community.general.pacman:
         name:
           - openvpn
         state: present
-    - name: connect openvpn
+    - name: Connect openvpn
       become: true
       ansible.builtin.command:
         chdir: "{{ openvpn_dir }}"

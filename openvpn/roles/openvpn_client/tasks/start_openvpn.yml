@@ -1,8 +1,8 @@
 ---
 # these tasks start the openvpn client connection
 
-- name: start openvpn connection
+- name: Start openvpn connection
   become: true
-  service:
+  ansible.builtin.service:
     name: "openvpn-client@{{ client }}"
     state: started

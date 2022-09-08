@@ -1,7 +1,7 @@
 ---
 # these tasks install openvpn
 
-- name: install openvpn
+- name: Install openvpn
   become: true
   community.general.pacman:
     name:
