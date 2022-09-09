@@ -1,4 +1,4 @@
 ---
-- include: install_openvpn.yml
-- include: setup_openvpn.yml
-- include: start_openvpn.yml
+- import_tasks: install_openvpn.yml
+- import_tasks: setup_openvpn.yml
+- import_tasks: start_openvpn.yml
