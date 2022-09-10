@@ -1,7 +1,7 @@
 ---
 # these tasks install wireguard
 
-- name: install wireguard
+- name: Install wireguard
   become: true
   community.general.pacman:
     name:

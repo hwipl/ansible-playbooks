@@ -1,5 +1,5 @@
 ---
-- name: create and start wireguard clients
+- name: Create and start wireguard clients
   hosts: wireguard_clients
 
   roles:

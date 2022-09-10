@@ -1,17 +1,17 @@
 ---
 # these tasks connect to a wireguard server
 
-- name: start wireguard vpn connection
+- name: Start wireguard vpn connection
   hosts: localhost
   vars:
-    - wg_conf: "{{ ansible_env.HOME }}/wireguard/wg0.conf"
+    wg_conf: "{{ ansible_env.HOME }}/wireguard/wg0.conf"
 
   tasks:
-    - name: install wireguard tools
+    - name: Install wireguard tools
       community.general.pacman:
         name:
           - wireguard-tools
         state: present
-    - name: connect wireguard
+    - name: Connect wireguard
       ansible.builtin.command:
         cmd: /usr/bin/wg-quick up "{{ wg_conf }}"
