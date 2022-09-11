@@ -1,4 +1,4 @@
 ---
-- include: install_wireguard.yml
-- include: setup_wireguard.yml
-- include: start_wireguard.yml
+- import_tasks: install_wireguard.yml
+- import_tasks: setup_wireguard.yml
+- import_tasks: start_wireguard.yml
