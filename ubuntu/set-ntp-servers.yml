@@ -1,0 +1,36 @@
+---
+# these tasks set the ntp servers on ntp clients to the space separated list of
+# hostnames or addresses in ntp_servers, the config is written to the file
+# timesyncd_conf_name in /etc/systemd/timesyncd.conf.d/
+
+- name: Set ntp servers on ntp client hosts
+  hosts: ntp_clients
+  become: true
+  vars:
+    ntp_servers: "0.ubuntu.pool.ntp.org 1.ubuntu.pool.ntp.org"
+    timesyncd_conf_name: "ntp_servers.conf"
+    timesyncd_conf_dir: "/etc/systemd/timesyncd.conf.d"
+
+  tasks:
+    - name: Ensure timesyncd conf dir exists
+      ansible.builtin.file:
+        path: "{{ timesyncd_conf_dir }}"
+        state: directory
+        owner: root
+        group: root
+        mode: '0755'
+    - name: Set ntp servers in timesyncd conf
+      ansible.builtin.copy:
+        dest: "/etc/systemd/timesyncd.conf.d/{{ timesyncd_conf_name }}"
+        content: "[Time]\nNTP={{ ntp_servers }}"
+        owner: root
+        group: root
+        mode: '0644'
+      notify:
+        - Restart systemd-timesyncd
+
+  handlers:
+    - name: Restart systemd-timesyncd
+      ansible.builtin.service:
+        name: systemd-timesyncd
+        state: restarted
