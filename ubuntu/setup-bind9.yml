@@ -1,0 +1,80 @@
+---
+# these tasks install and configure bind9 name servers
+
+- name: Install and configure bind9 name servers
+  hosts: name_servers
+  become: true
+  vars:
+    zones:
+      - name: mycompany.lan
+        description: mycompany zone
+        nameserver_ip: 192.168.1.10
+        contact: root.mycompany.lan.
+        serial: 1
+        includes:   # references to actual db files, allows aliases
+          - name: site1.mycompany.lan.
+            file: db.mycompany.lan-site1
+          - name: s1.mycompany.lan.   # alias for site1
+            file: db.mycompany.lan-site1
+          - name: site2.mycompany.lan.
+            file: db.mycompany.lan-site2
+          - name: s2.mycompany.lan.   # alias for site2
+            file: db.mycompany.lan-site2
+        dbs:    # actual db files that contain host names
+          - file: db.mycompany.lan-site1
+            a_records:
+              - name: host1
+                ip: 192.168.1.1
+              - name: host2
+                ip: 192.168.1.2
+              - name: host3
+                ip: 192.168.1.3
+          - file: db.mycompany.lan-site2
+            a_records:
+              - name: host1
+                ip: 192.168.2.1
+              - name: host2
+                ip: 192.168.2.2
+              - name: host3
+                ip: 192.168.2.3
+
+  tasks:
+    - name: Ensure bind9 is installed
+      ansible.builtin.apt:
+        name: bind9
+        state: present
+    - name: Create named.conf.local from template
+      ansible.builtin.template:
+        src: named.conf.local.j2
+        dest: "/etc/bind/named.conf.local"
+        owner: root
+        group: bind
+        mode: '0644'
+      notify:
+        - Restart bind9
+    - name: Create db files with includes from template
+      ansible.builtin.template:
+        src: db-includes.j2
+        dest: "/etc/bind/db.{{ item.name }}"
+        owner: root
+        group: bind
+        mode: '0644'
+      loop: "{{ zones }}"
+      notify:
+        - Restart bind9
+    - name: Create actual db files from template
+      ansible.builtin.template:
+        src: db-actual.j2
+        dest: "/etc/bind/{{ item.1.file }}"
+        owner: root
+        group: bind
+        mode: '0644'
+      loop: "{{ zones | subelements('dbs') }}"
+      notify:
+        - Restart bind9
+
+  handlers:
+    - name: Restart bind9
+      ansible.builtin.service:
+        name: bind9
+        state: restarted
