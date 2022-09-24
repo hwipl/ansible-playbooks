@@ -39,6 +39,10 @@
                 ip: 192.168.2.3
 
   tasks:
+    - name: Update apt cache if older than 3600 seconds
+      ansible.builtin.apt:
+        update_cache: true
+        cache_valid_time: 3600
     - name: Ensure bind9 is installed
       ansible.builtin.apt:
         name: bind9
