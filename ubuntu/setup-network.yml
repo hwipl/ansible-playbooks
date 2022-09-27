@@ -1,0 +1,29 @@
+---
+# these tasks setup a static network configuration with netplan
+
+- name: Setup static network configuration
+  hosts: static_servers
+  become: true
+  vars:
+    interfaces:
+      - name: eth3
+        addresses:
+          - 192.168.1.23/24
+        gateway: 192.168.1.1
+        search_domains: company.lan
+        dns_servers: 192.168.1.1
+
+  tasks:
+    - name: Create netplan configuration from template
+      ansible.builtin.template:
+        src: netplan-static.yaml.j2
+        dest: "/etc/netplan/99_static.yaml"
+        owner: root
+        group: root
+        mode: '0644'
+      notify:
+        - Apply netplan configuration
+
+  handlers:
+    - name: Apply netplan configuration
+      ansible.builtin.command: netplan apply

@@ -1,0 +1,15 @@
+network:
+  version: 2
+  renderer: networkd
+  ethernets:
+{{% for interface in interfaces %}}
+    {{ interface.name }}:
+      addresses:
+{{% for address in interface.addresses %}}
+        - {{ address }}
+{{% endfor %}}
+      gateway4: {{ interface.gateway }}
+      nameservers:
+          search: [{{ interface.search_domains }}]
+          addresses: [{{ interface.dns_servers }}]
+{{% endfor %}}
