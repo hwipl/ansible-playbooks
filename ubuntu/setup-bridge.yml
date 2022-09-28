@@ -1,0 +1,28 @@
+---
+# these tasks setup a network bridge with netplan
+
+- name: Setup bridge configuration
+  hosts: bridge_servers
+  become: true
+  vars:
+    ethernets:
+      - eth3
+    bridges:
+      - name: br0
+        interfaces:
+          - eth3
+
+  tasks:
+    - name: Create netplan configuration from template
+      ansible.builtin.template:
+        src: netplan-bridge.yaml.j2
+        dest: "/etc/netplan/99_bridge.yaml"
+        owner: root
+        group: root
+        mode: '0644'
+      notify:
+        - Apply netplan configuration
+
+  handlers:
+    - name: Apply netplan configuration
+      ansible.builtin.command: netplan apply
