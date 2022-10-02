@@ -1,0 +1,29 @@
+---
+# these tasks setup nftables
+
+- name: Setup nftables
+  hosts: nftables_servers
+  become: true
+  vars:
+    nftables_conf: "nftables.conf.j2"
+
+  tasks:
+    - name: Ensure nftables service is enabled
+      ansible.builtin.service:
+        name: nftables
+        enabled: true
+    - name: Create nftables configuration from template
+      ansible.builtin.template:
+        src: "{{ nftables_conf }}"
+        dest: "/etc/nftables.conf"
+        owner: root
+        group: root
+        mode: '0644'
+      notify:
+        - Restart nftables
+
+  handlers:
+    - name: Restart nftables
+      ansible.builtin.service:
+        name: nftables
+        state: restarted
