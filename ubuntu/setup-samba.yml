@@ -1,0 +1,44 @@
+---
+# these tasks setup samba with a simple guest share
+
+- name: Setup samba
+  hosts: samba_servers
+  become: true
+  vars:
+    share: guest
+    path: /srv/samba/guest/
+  tasks:
+    - name: Update apt cache if older than 3600 seconds
+      ansible.builtin.apt:
+        update_cache: true
+        cache_valid_time: 3600
+    - name: Ensure samba is installed
+      ansible.builtin.apt:
+        name: samba
+        state: present
+    - name: Ensure share directory exists
+      ansible.builtin.file:
+        path: "{{ path }}"
+        state: directory
+        owner: root
+        group: root
+        mode: '0775'
+    - name: Create samba configuration from template
+      ansible.builtin.template:
+        src: smb.conf.j2
+        dest: "/etc/samba/smb.conf"
+        owner: root
+        group: root
+        mode: '0644'
+        backup: true
+      notify:
+        - Restart samba
+
+  handlers:
+    - name: Restart samba
+      ansible.builtin.service:
+        name: "{{ item }}"
+        state: restarted
+      loop:
+        - smbd
+        - nmbd
