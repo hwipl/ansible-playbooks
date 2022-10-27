@@ -4,6 +4,9 @@ network:
   ethernets:
 {{% for interface in interfaces %}}
     {{ interface.name }}:
+      match:
+          macaddress: "{{ interface.mac }}"
+      set-name: {{ interface.name }}
       addresses:
 {{% for address in interface.addresses %}}
         - {{ address }}

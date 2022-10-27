@@ -7,6 +7,7 @@
   vars:
     interfaces:
       - name: eth3
+        mac: "ca:fe:ca:fe:ca:fe"
         addresses:
           - 192.168.1.23/24
         gateway: 192.168.1.1
