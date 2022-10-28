@@ -2,17 +2,17 @@ network:
   version: 2
   renderer: networkd
   ethernets:
-{{% for interface in interfaces %}}
+{% for interface in interfaces %}
     {{ interface.name }}:
       match:
           macaddress: "{{ interface.mac }}"
       set-name: {{ interface.name }}
       addresses:
-{{% for address in interface.addresses %}}
+{% for address in interface.addresses %}
         - {{ address }}
-{{% endfor %}}
+{% endfor %}
       gateway4: {{ interface.gateway }}
       nameservers:
           search: [{{ interface.search_domains }}]
           addresses: [{{ interface.dns_servers }}]
-{{% endfor %}}
+{% endfor %}
