@@ -2,16 +2,16 @@ network:
   version: 2
   renderer: networkd
   ethernets:
-{{% for ethernet in ethernets %}}
+{% for ethernet in ethernets %}
     {{ ethernet }}:
       dhcp4: no
-{{% endfor %}}
+{% endfor %}
   bridges:
-{{% for bridge in bridges %}}
+{% for bridge in bridges %}
     {{ bridge.name }}:
       dhcp4: no
       interfaces:
-{{% for interface in bridge.interfaces %}}
+{% for interface in bridge.interfaces %}
         - {{ interface }}
-{{% endfor %}}
-{{% endfor %}}
+{% endfor %}
+{% endfor %}
