@@ -1,0 +1,25 @@
+---
+# these tasks setup a dhcp network configuration with netplan
+
+- name: Setup dhcp network configuration
+  hosts: dhcp_servers
+  become: true
+  vars:
+    interfaces:
+      - name: eth3
+        mac: "ca:fe:ca:fe:ca:fe"
+
+  tasks:
+    - name: Create netplan configuration from template
+      ansible.builtin.template:
+        src: netplan-dhcp.yaml.j2
+        dest: "/etc/netplan/99_dhcp.yaml"
+        owner: root
+        group: root
+        mode: '0644'
+      notify:
+        - Apply netplan configuration
+
+  handlers:
+    - name: Apply netplan configuration
+      ansible.builtin.command: netplan apply
