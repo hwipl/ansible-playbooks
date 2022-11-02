@@ -1,0 +1,38 @@
+---
+# these tasks setup a network configuration with netplan
+
+- name: Setup network configuration with netplan
+  hosts: netplan_hosts
+  become: true
+  vars:
+    # this is an embedded netplan config, see netplan documentation
+    network:
+      version: 2
+      renderer: networkd
+      ethernets:
+        enp0s25:
+          dhcp4: true
+      bridges:
+        br0:
+          addresses: [10.3.99.25/24]
+          interfaces: [vlan15]
+      vlans:
+        vlan15:
+          accept-ra: false
+          id: 15
+          link: enp0s25
+
+  tasks:
+    - name: Create netplan configuration from template
+      ansible.builtin.template:
+        src: netplan-network.yaml.j2
+        dest: "/etc/netplan/99_network.yaml"
+        owner: root
+        group: root
+        mode: '0644'
+      notify:
+        - Apply netplan configuration
+
+  handlers:
+    - name: Apply netplan configuration
+      ansible.builtin.command: netplan apply
