@@ -1,0 +1,26 @@
+---
+# these tasks setup libvirt with qemu-kvm and add users to the libvirt group
+# for access
+
+- name: Update apt cache if older than 3600 seconds
+  become: true
+  ansible.builtin.apt:
+    update_cache: true
+    cache_valid_time: 3600
+- name: Ensure qemu-kvm is installed
+  become: true
+  ansible.builtin.apt:
+    name: qemu-kvm
+    state: present
+- name: Ensure libvirt is installed
+  become: true
+  ansible.builtin.apt:
+    name: libvirt-daemon-system
+    state: present
+- name: Add libvirt users to group libvirt
+  become: true
+  ansible.builtin.user:
+    name: '{{ item }}'
+    groups: libvirt
+    append: true
+  loop: "{{ libvirt_users }}"
