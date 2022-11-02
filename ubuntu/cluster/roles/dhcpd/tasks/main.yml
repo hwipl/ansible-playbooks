@@ -1,0 +1,34 @@
+---
+# these tasks setup dhcpd with static host configuration
+
+- name: Update apt cache if older than 3600 seconds
+  become: true
+  ansible.builtin.apt:
+    update_cache: true
+    cache_valid_time: 3600
+- name: Ensure dhcpd is installed
+  become: true
+  ansible.builtin.apt:
+    name: isc-dhcp-server
+    state: present
+- name: Create dhcpd configuration from template
+  become: true
+  ansible.builtin.template:
+    src: dhcp.conf.j2
+    dest: "/etc/dhcp/dhcpd.conf"
+    owner: root
+    group: root
+    mode: '0644'
+  notify:
+    - Restart dhcpd
+- name: Create isc-dhcp-server defaults from template
+  become: true
+  ansible.builtin.template:
+    src: isc-dhcp-server.j2
+    dest: "/etc/default/isc-dhcp-server"
+    owner: root
+    group: root
+    mode: '0644'
+    backup: true
+  notify:
+    - Restart dhcpd
