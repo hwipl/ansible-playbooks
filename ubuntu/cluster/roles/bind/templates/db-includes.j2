@@ -1,0 +1,16 @@
+$TTL    604800
+@       IN      SOA     {{ item.name }}. {{ item.contact }} (
+                              {{ item.serial}}         ; Serial
+                         604800         ; Refresh
+                          86400         ; Retry
+                        2419200         ; Expire
+                         604800 )       ; Negative Cache TTL
+
+@       IN      NS      ns.{{ item.name }}.
+@       IN      A       {{ item.nameserver_ip }}
+@       IN      AAAA    ::1
+ns      IN      A       {{ item.nameserver_ip }}
+
+{% for include in item.includes %}
+$INCLUDE "/etc/bind/{{ include.file }}" {{ include.name }}
+{% endfor %}

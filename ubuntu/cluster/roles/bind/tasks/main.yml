@@ -1,0 +1,56 @@
+---
+# these tasks install and configure bind9 name servers
+
+- name: Update apt cache if older than 3600 seconds
+  become: true
+  ansible.builtin.apt:
+    update_cache: true
+    cache_valid_time: 3600
+- name: Ensure bind9 is installed
+  become: true
+  ansible.builtin.apt:
+    name: bind9
+    state: present
+- name: Create named.conf.options from template
+  become: true
+  ansible.builtin.template:
+    src: named.conf.options.j2
+    dest: "/etc/bind/named.conf.options"
+    owner: root
+    group: bind
+    mode: '0644'
+    backup: true
+  notify:
+    - Restart bind9
+- name: Create named.conf.local from template
+  become: true
+  ansible.builtin.template:
+    src: named.conf.local.j2
+    dest: "/etc/bind/named.conf.local"
+    owner: root
+    group: bind
+    mode: '0644'
+  notify:
+    - Restart bind9
+- name: Create db files with includes from template
+  become: true
+  ansible.builtin.template:
+    src: db-includes.j2
+    dest: "/etc/bind/db.{{ item.name }}"
+    owner: root
+    group: bind
+    mode: '0644'
+  loop: "{{ zones }}"
+  notify:
+    - Restart bind9
+- name: Create actual db files from template
+  become: true
+  ansible.builtin.template:
+    src: db-actual.j2
+    dest: "/etc/bind/{{ item.1.file }}"
+    owner: root
+    group: bind
+    mode: '0644'
+  loop: "{{ zones | subelements('dbs') }}"
+  notify:
+    - Restart bind9

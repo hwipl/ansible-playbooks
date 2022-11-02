@@ -1,0 +1,8 @@
+---
+# handlers for bind
+
+- name: Restart bind9
+  become: true
+  ansible.builtin.service:
+    name: bind9
+    state: restarted
