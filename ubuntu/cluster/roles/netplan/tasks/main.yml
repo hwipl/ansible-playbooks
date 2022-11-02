@@ -1,0 +1,13 @@
+---
+# these tasks setup a network configuration with netplan
+
+- name: Create netplan configuration from template
+  become: true
+  ansible.builtin.template:
+    src: netplan-network.yaml.j2
+    dest: "/etc/netplan/99_network.yaml"
+    owner: root
+    group: root
+    mode: '0644'
+  notify:
+    - Apply netplan configuration
