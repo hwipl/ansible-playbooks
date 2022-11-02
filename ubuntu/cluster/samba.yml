@@ -1,0 +1,6 @@
+---
+- name: Configure smb servers
+  hosts: smb_servers
+
+  roles:
+    - samba

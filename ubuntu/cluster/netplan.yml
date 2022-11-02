@@ -1,0 +1,6 @@
+---
+- name: Configure network using netplan
+  hosts: netplan_hosts
+
+  roles:
+    - netplan

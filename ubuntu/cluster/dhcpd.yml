@@ -1,0 +1,6 @@
+---
+- name: Configure dhcp servers
+  hosts: dhcp_servers
+
+  roles:
+    - dhcpd
