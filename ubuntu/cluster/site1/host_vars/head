@@ -1,0 +1,37 @@
+---
+# ansible settings
+ansible_connection: ssh
+ansible_host: 192.168.100.101
+ansible_user: ansible
+
+# netplan network configuration
+network:
+  version: 2
+  renderer: networkd
+  ethernets:
+    enp0s25:
+      match:
+        macaddress: "ca:fe:ca:fe:00:01"
+      dhcp4: true
+  bridges:
+    br0:
+      addresses: [10.3.99.25/24]
+      interfaces: [vlan15]
+  vlans:
+    vlan15:
+      accept-ra: false
+      id: 15
+      link: enp0s25
+
+# dhcp server configuration
+dhcpd_interfaces: "enp0s25 br0"
+
+# dns server configuration
+bind_listen_on: "192.168.1.3; 192.168.2.3;"
+
+# smb server configuration
+samba_path: "/srv/samba/guest"
+samba_share: "guest"
+
+# nftables configuration
+nftables_conf: "nftables.conf.j2"
