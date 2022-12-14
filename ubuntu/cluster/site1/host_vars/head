@@ -35,3 +35,15 @@ samba_share: "guest"
 
 # nftables configuration
 nftables_conf: "nftables.conf.j2"
+
+# wireguard configuration
+wireguard_interface: "wg0"
+wireguard_listen_port: 51000
+wireguard_address: 192.168.2.1/24
+wireguard_private_key_file: "/local/file/server-private.key"
+wireguard_public_key_file: "/local/file/server-public.key"
+wireguard_peers:
+  - public_key: InsertHereSomeCrypticPublicKeyOfPeer1
+    allowed_ips: 192.168.2.2
+  - public_key: InsertHereSomeCrypticPublicKeyOfPeer2
+    allowed_ips: 192.168.2.3

@@ -24,3 +24,6 @@ head
 
 [nftables_hosts]
 head
+
+[wireguard_servers]
+head
