@@ -1,0 +1,8 @@
+---
+# handlers for wireguard
+
+- name: Restart wireguard connection
+  become: true
+  ansible.builtin.service:
+    name: "wg-quick@{{ wireguard_interface }}"
+    state: restarted

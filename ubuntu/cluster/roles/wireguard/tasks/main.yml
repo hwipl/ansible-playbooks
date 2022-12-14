@@ -1,0 +1,37 @@
+---
+# these tasks install and configure wireguard servers
+
+- name: Update apt cache if older than 3600 seconds
+  become: true
+  ansible.builtin.apt:
+    update_cache: true
+    cache_valid_time: 3600
+- name: Ensure wireguard is installed
+  become: true
+  ansible.builtin.apt:
+    name: wireguard
+    state: present
+- name: Copy wireguard server key file
+  become: true
+  ansible.builtin.copy:
+    src: "{{ wireguard_private_key_file }}"
+    dest: "/etc/wireguard/{{ wireguard_interface }}.key"
+    owner: root
+    group: root
+    mode: '0600'
+  notify: Restart wireguard connection
+- name: Create wireguard server config file
+  become: true
+  ansible.builtin.template:
+    src: wg.conf.j2
+    dest: "/etc/wireguard/{{ wireguard_interface }}.conf"
+    owner: root
+    group: root
+    mode: '0600'
+  notify: Restart wireguard connection
+- name: Enable wireguard connection
+  become: true
+  ansible.builtin.service:
+    name: "wg-quick@{{ wireguard_interface }}"
+    enabled: true
+  notify: Restart wireguard connection
