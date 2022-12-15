@@ -1,0 +1,9 @@
+[Interface]
+PrivateKey = INSERT_YOUR_PRIVATE_KEY_HERE
+ListenPort = {{ wireguard_listen_port }}
+Address = {{ item.client_address }}
+
+[Peer]
+PublicKey = {{ wireguard_public_key }}
+Endpoint = {{ item.client_endpoint }}
+AllowedIPs = {{ item.client_allowed_ips }}
