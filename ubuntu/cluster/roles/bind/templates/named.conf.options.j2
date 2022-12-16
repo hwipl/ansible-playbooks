@@ -1,8 +1,32 @@
+acl goodclients {
+	localhost;
+	localnets;
+};
+
 options {
 	directory "/var/cache/bind";
+
+	recursion yes;
+	allow-query { goodclients; };
+
 	forwarders {
 {% for forwarder in forwarders %}
 		{{ forwarder }};
+{% endfor %}
+	};
+	forward only;
+
+	dnssec-validation auto;
+
+	auth-nxdomain no;
+	listen-on {
+{% for listen in bind_listen_on %}
+		{{ listen }};
+{% endfor %}
+	};
+	listen-on-v6 {
+{% for listen in bind_listen_on_v6 %}
+		{{ listen }};
 {% endfor %}
 	};
 };

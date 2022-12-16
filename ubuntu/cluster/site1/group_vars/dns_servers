@@ -25,6 +25,8 @@ zones:
         file: db.mycompany.lan-site2
       - name: s2.mycompany.lan.   # alias for site2
         file: db.mycompany.lan-site2
+      - name: mycompany.lan.
+        file: db.mycompany.lan-all
     dbs:    # actual db files that contain host names
       - file: db.mycompany.lan-site1
         a_records:
@@ -42,3 +44,13 @@ zones:
             ip: 192.168.2.2
           - name: host3
             ip: 192.168.2.3
+      - file: db.mycompany.lan-all
+        a_records:
+          - name: service1
+            ip: 192.168.1.1
+          - name: service2
+            ip: 192.168.1.2
+          - name: service3
+            ip: 192.168.1.1
+          - name: service3
+            ip: 192.168.1.2
