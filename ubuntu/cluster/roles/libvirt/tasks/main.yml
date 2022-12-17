@@ -17,6 +17,11 @@
   ansible.builtin.apt:
     name: libvirt-daemon-system
     state: present
+- name: Ensure virtinst is installed
+  become: true
+  ansible.builtin.apt:
+    name: virtinst
+    state: present
 - name: Add libvirt users to group libvirt
   become: true
   ansible.builtin.user:
