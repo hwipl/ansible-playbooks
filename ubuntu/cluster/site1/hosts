@@ -27,3 +27,7 @@ head
 
 [wireguard_servers]
 head
+
+[monitored_hosts]
+head
+storage

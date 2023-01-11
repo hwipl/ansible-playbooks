@@ -1,0 +1,6 @@
+---
+- name: Configure prometheus node exporter
+  hosts: monitored_hosts
+
+  roles:
+    - prometheus-node-exporter

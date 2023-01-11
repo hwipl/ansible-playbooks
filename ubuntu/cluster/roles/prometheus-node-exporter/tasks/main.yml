@@ -1,0 +1,23 @@
+---
+# these tasks setup prometheus node exporter
+
+- name: Update apt cache if older than 3600 seconds
+  become: true
+  ansible.builtin.apt:
+    update_cache: true
+    cache_valid_time: 3600
+- name: Ensure prometheus-node-exporter is installed
+  become: true
+  ansible.builtin.apt:
+    name: prometheus-node-exporter
+    state: present
+- name: Create prometheus-node-exporter configuration from template
+  become: true
+  ansible.builtin.template:
+    src: prometheus-node-exporter.j2
+    dest: "/etc/default/prometheus-node-exporter"
+    owner: root
+    group: root
+    mode: '0644'
+  notify:
+    - Restart prometheus-node-exporter
