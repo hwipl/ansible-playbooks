@@ -63,3 +63,6 @@ wireguard_peers:
     client_address: 192.168.2.3/24
     client_endpoint: vpn.example.com:51000
     client_allowed_ips: 192.168.2.0/24
+
+# prometheus-node-exporter configuration
+prometheus_node_exporter_args: '--web.listen-address="192.168.100.101:9100"'
