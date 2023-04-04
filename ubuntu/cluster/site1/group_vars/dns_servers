@@ -10,6 +10,13 @@
 #
 forwarders:
   - 0.0.0.0
+
+goodclients:
+  - localhost
+  - localnets
+  - 192.168.1.0/24
+  - 192.168.2.0/24
+
 zones:
   - name: mycompany.lan
     description: mycompany zone

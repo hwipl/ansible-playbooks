@@ -1,6 +1,7 @@
 acl goodclients {
-	localhost;
-	localnets;
+{% for client in goodclients %}
+	{{ client }};
+{% endfor %}
 };
 
 options {
@@ -15,6 +16,7 @@ options {
 {% endfor %}
 	};
 	forward only;
+	max-ncache-ttl 1;
 
 	dnssec-validation auto;
 
