@@ -1,0 +1,12 @@
+---
+# additional user configuration
+
+additional_users:
+- name: admin
+  password_login: false
+  groups:
+  - sudo
+- name: rescue
+  password_login: true
+  groups:
+  - sudo

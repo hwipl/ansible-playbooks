@@ -1,0 +1,34 @@
+---
+# these tasks setup users
+
+- name: Add users
+  become: true
+  ansible.builtin.user:
+    name: '{{ item.name }}'
+    groups: "{{ item.groups }}"
+    append: true
+    shell: /bin/bash
+  loop: "{{ additional_users }}"
+- name: Enable password login for enabled users
+  become: true
+  ansible.builtin.user:
+    name: '{{ item.name }}'
+    # this sets 16 chars long passwords consisting of only ascii letters
+    password: "{{ lookup('ansible.builtin.password', inventory_dir + '/credentials/additional_users/' + item.name + ' chars=ascii_letters length=16') | ansible.builtin.password_hash(salt=lookup('ansible.builtin.password', inventory_dir + '/credentials/additional_users/' + item.name + '-salt length=16 chars=ascii_letters')) }}"
+  loop: "{{ additional_users }}"
+  when: item.password_login == true
+- name: Disable password login for other users
+  become: true
+  ansible.builtin.user:
+    name: '{{ item.name }}'
+    password: '!'
+  loop: "{{ additional_users }}"
+  when: item.password_login == false
+- name: Enable sudo without password
+  become: true
+  ansible.builtin.template:
+    src: 90-additional-users.j2
+    dest: "/etc/sudoers.d/90-additional-users"
+    owner: root
+    group: root
+    mode: '0440'

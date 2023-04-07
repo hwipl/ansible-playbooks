@@ -31,3 +31,7 @@ head
 [monitored_hosts]
 head
 storage
+
+[additional_users]
+head
+storage

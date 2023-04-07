@@ -1,0 +1,6 @@
+---
+- name: Configure additional users
+  hosts: additional_users
+
+  roles:
+    - additional-users

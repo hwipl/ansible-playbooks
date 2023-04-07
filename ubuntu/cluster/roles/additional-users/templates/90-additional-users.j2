@@ -1,0 +1,6 @@
+# User rules for additional users
+{% for user in additional_users %}
+{% if user.groups and "sudo" in user.groups %}
+{{ user.name }} ALL=(ALL) NOPASSWD:ALL
+{% endif %}
+{% endfor %}
