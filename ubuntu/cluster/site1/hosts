@@ -35,3 +35,7 @@ storage
 [additional_users]
 head
 storage
+
+# reboot hosts after upgrades (if required).
+[reboot_hosts]
+storage
