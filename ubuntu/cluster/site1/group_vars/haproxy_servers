@@ -1,0 +1,61 @@
+---
+# haproxy server configuration
+
+# a haproxy certificate is a pem file that contains both the certificate and
+# private key, e.g., created with:
+# cat cert_file key_file | tee haproxy_cert.pem
+haproxy_certificates:
+- src: "{{ inventory_dir }}/certs/site1-haproxy.pem"
+  dest: /etc/haproxy/site1-haproxy.pem
+
+# haproxy frontend configurations
+haproxy_frontends:
+- name: keycloak
+  config:
+  - bind *:8443
+  - option tcplog
+  - mode tcp
+  - default_backend keycloak-servers
+- name: istio-ingressgateway
+  config:
+  - bind *:32196 ssl crt /etc/haproxy/site1-haproxy.pem
+  - option tcplog
+  - mode tcp
+  - default_backend istio-ingressgateway-servers
+- name: grafana
+  config:
+  - bind *:3000 ssl crt /etc/haproxy/site1-haproxy.pem
+  - option tcplog
+  - mode tcp
+  - default_backend grafana-servers
+- name: jenkins
+  config:
+  - bind *:8090 ssl crt /etc/haproxy/site1-haproxy.pem
+  - option tcplog
+  - mode tcp
+  - default_backend jenkins-servers
+
+# haproxy backend configurations
+haproxy_backends:
+- name: keycloak-servers
+  config:
+  - mode tcp
+  - balance roundrobin
+  - option ssl-hello-chk
+  - server keycloak.s1.mycompany.lan 192.168.1.13:8443 check
+- name: istio-ingressgateway-servers
+  config:
+  - mode tcp
+  - balance roundrobin
+  - server k8s-master1.s1.mycompany.lan 192.168.1.11:32196 check
+  - server k8s-master2.s1.mycompany.lan 192.168.1.21:32196 check
+- name: grafana-servers
+  config:
+  - mode tcp
+  - balance roundrobin
+  - server monitor.s1.mycompany.lan 192.168.1.14:3000 check
+- name: jenkins-servers
+  config:
+  - mode tcp
+  - balance roundrobin
+  - server jenkins.s1.mycompany.lan 192.168.1.15:8090 check

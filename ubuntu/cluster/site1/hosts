@@ -32,6 +32,9 @@ head
 head
 storage
 
+[haproxy_servers]
+head
+
 [additional_users]
 head
 storage
