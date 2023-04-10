@@ -1,0 +1,6 @@
+---
+- name: Configure keycloak
+  hosts: keycloak_servers
+
+  roles:
+    - keycloak

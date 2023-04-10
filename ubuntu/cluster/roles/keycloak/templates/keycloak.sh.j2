@@ -1,0 +1,4 @@
+#!/bin/bash
+
+cd "{{ keycloak_dir }}/keycloak-{{ keycloak_version }}" || exit
+KEYCLOAK_ADMIN="{{ keycloak_admin }}" KEYCLOAK_ADMIN_PASSWORD="{{ keycloak_admin_password }}" ./bin/kc.sh start-dev --https-certificate-file="{{ keycloak_dir }}/keycloak.crt" --https-certificate-key-file="{{ keycloak_dir }}/keycloak.key" --http-enabled=false

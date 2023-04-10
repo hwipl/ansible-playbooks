@@ -7,6 +7,9 @@ storage
 [netplan_hosts]
 head
 
+[virtual_machines]
+keycloak
+
 [dhcp_servers]
 head
 
@@ -32,6 +35,12 @@ head
 head
 storage
 
+[monitored_hosts:children]
+virtual_machines
+
+[keycloak_servers]
+keycloak
+
 [haproxy_servers]
 head
 
@@ -39,6 +48,12 @@ head
 head
 storage
 
+[additional_users:children]
+virtual_machines
+
 # reboot hosts after upgrades (if required).
 [reboot_hosts]
 storage
+
+[reboot_hosts:children]
+virtual_machines

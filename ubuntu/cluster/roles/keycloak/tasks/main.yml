@@ -1,0 +1,45 @@
+---
+# these tasks setup keycloak
+
+- name: Update apt cache if older than 3600 seconds
+  become: true
+  ansible.builtin.apt:
+    update_cache: true
+    cache_valid_time: 3600
+- name: Ensure openjdk is installed
+  become: true
+  ansible.builtin.apt:
+    name: "{{ keycloak_jdk }}"
+    state: present
+- name: Ensure keycloak dir exists
+  ansible.builtin.file:
+    path: "{{ keycloak_dir }}"
+    state: directory
+    mode: '0700'
+- name: Download and extract keycloak archive
+  ansible.builtin.unarchive:
+    src: "{{ keycloak_url }}"
+    dest: "{{ keycloak_dir }}"
+    remote_src: true
+- name: Copy SSL certificate file
+  ansible.builtin.copy:
+    src: "{{ keycloak_certificate }}"
+    dest: "{{ keycloak_dir }}/keycloak.crt"
+    mode: '0600'
+- name: Copy SSL certificate private key
+  ansible.builtin.copy:
+    src: "{{ keycloak_privatekey }}"
+    dest: "{{ keycloak_dir }}/keycloak.key"
+    mode: '0600'
+- name: Create start script
+  ansible.builtin.template:
+    src: "keycloak.sh.j2"
+    dest: "{{ keycloak_dir }}/keycloak.sh"
+    mode: '0700'
+- name: Create systemd service
+  become: true
+  ansible.builtin.template:
+    src: "keycloak.service.j2"
+    dest: /lib/systemd/system/keycloak.service
+  notify:
+    - Reload keycloak service

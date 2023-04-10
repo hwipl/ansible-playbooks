@@ -1,0 +1,10 @@
+---
+# handlers for keycloak
+
+- name: Reload keycloak service
+  become: true
+  ansible.builtin.systemd:
+    name: keycloak
+    enabled: true
+    daemon_reload: true
+    state: restarted
