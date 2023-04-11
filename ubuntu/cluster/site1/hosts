@@ -51,6 +51,9 @@ storage
 [additional_users:children]
 virtual_machines
 
+[ssh_keys:children]
+additional_users
+
 # reboot hosts after upgrades (if required).
 [reboot_hosts]
 storage

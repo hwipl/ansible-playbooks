@@ -1,0 +1,6 @@
+---
+- name: Set ssh keys for users
+  hosts: ssh_keys
+
+  roles:
+    - ssh-keys
