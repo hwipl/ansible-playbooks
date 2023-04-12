@@ -1,0 +1,5 @@
+# workaround for kubeflow pods not starting
+# because there are too many open files,
+# to be set on kubernetes nodes
+fs.inotify.max_user_instances=1280
+fs.inotify.max_user_watches=655360

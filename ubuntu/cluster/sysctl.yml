@@ -1,0 +1,6 @@
+---
+- name: Set sysctl settings
+  hosts: sysctl_hosts
+
+  roles:
+    - sysctl

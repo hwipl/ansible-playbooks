@@ -1,0 +1,14 @@
+---
+# these tasks set sysctl settings
+
+- name: Set sysctl settings from templates
+  become: true
+  ansible.builtin.template:
+    src: "{{ item.src }}"
+    dest: "/etc/sysctl.d/{{ item.dest }}"
+    owner: root
+    group: root
+    mode: '0644'
+  loop: "{{ sysctl_files }}"
+  notify:
+    - Restart systemd-sysctl

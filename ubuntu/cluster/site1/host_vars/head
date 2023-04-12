@@ -66,3 +66,8 @@ wireguard_peers:
 
 # prometheus-node-exporter configuration
 prometheus_node_exporter_args: '--web.listen-address="192.168.100.101:9100"'
+
+# sysctl settings
+sysctl_files:
+- src: 20-ip-forwarding.conf.j2
+  dest: 20-ip-forwarding.conf
