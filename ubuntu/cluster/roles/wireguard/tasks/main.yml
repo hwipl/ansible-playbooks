@@ -35,9 +35,9 @@
     name: "wg-quick@{{ wireguard_interface }}"
     enabled: true
   notify: Restart wireguard connection
-- name: Create local artifacts directory for wireguard client configs
+- name: Create local directory for wireguard client configs
   ansible.builtin.file:
-    path: "{{ inventory_dir }}/artifacts"
+    path: "{{ inventory_dir }}/wireguard-clients"
     mode: '0750'
     state: directory
   delegate_to: localhost
@@ -49,7 +49,7 @@
     wireguard_public_key: "{{ lookup('file', wireguard_public_key_file) }}"
   ansible.builtin.template:
     src: wg-client.conf.j2
-    dest: "{{ inventory_dir}}/artifacts/{{ item.name }}.conf"
+    dest: "{{ inventory_dir}}/wireguard-clients/{{ item.name }}.conf"
     mode: '0600'
   loop: "{{ wireguard_peers }}"
   delegate_to: localhost
