@@ -1,0 +1,108 @@
+---
+# ansible settings
+ansible_connection: ssh
+ansible_host: 10.20.201.3
+ansible_port: 22
+ansible_user: ansible
+ansible_ssh_private_key_file: ~/cluster/cluster-ssh-key
+
+# netplan network configuration
+netplan_config_file: 90-gpu-site1-network.yaml
+network:
+  version: 2
+  renderer: networkd
+  ethernets:
+    # interface connected to management network
+    mgmt0:
+      match:
+        macaddress: "ca:fe:ca:fe:02:01"
+      set-name: mgmt0
+      dhcp4: false
+      addresses:
+        - 10.20.201.3/24
+    int0:
+      match:
+        macaddress: "ca:fe:ca:fe:02:02"
+      set-name: int0
+      dhcp4: false
+      addresses:
+        - 10.20.1.3/24
+      nameservers:
+        search:
+          - s1.cluster.lan
+          - cluster.lan
+        addresses:
+          - 10.20.1.1
+      routes:
+        - to: default
+          via: 10.20.1.1
+        # vpn traffic
+        - to: 10.20.21.0/24
+          via: 10.20.1.1
+        # other cluster traffic
+        - to: 10.20.0.0/16
+          via: 10.20.1.201
+        # other user traffic
+        - to: 10.21.0.0/16
+          via: 10.20.1.201
+        - to: 10.22.0.0/16
+          via: 10.20.1.201
+        - to: 10.23.0.0/16
+          via: 10.20.1.201
+    # other cluster NICs, 8 slots used in server: 0-3, 6-9
+    # cluster0:
+    #   match:
+    #     macaddress: "ca:fe:ca:fe:02:03"
+    #   set-name: cluster0
+    #   dhcp4: false
+    #   addresses:
+    #     - 10.20.1.31/24
+    # cluster1:
+    #   match:
+    #     macaddress: "ca:fe:ca:fe:02:04"
+    #   set-name: cluster1
+    #   dhcp4: false
+    #   addresses:
+    #     - 10.20.1.32/24
+    # cluster2:
+    #   match:
+    #     macaddress: "ca:fe:ca:fe:02:05"
+    #   set-name: cluster2
+    #   dhcp4: false
+    #   addresses:
+    #     - 10.20.1.33/24
+    # cluster3:
+    #   match:
+    #     macaddress: "ca:fe:ca:fe:02:06"
+    #   set-name: cluster3
+    #   dhcp4: false
+    #   addresses:
+    #     - 10.20.1.34/24
+    # cluster6:
+    #   match:
+    #     macaddress: "ca:fe:ca:fe:02:07"
+    #   set-name: cluster6
+    #   dhcp4: false
+    #   addresses:
+    #     - 10.20.1.35/24
+    # cluster7:
+    #   match:
+    #     macaddress: "ca:fe:ca:fe:02:08"
+    #   set-name: cluster7
+    #   dhcp4: false
+    #   addresses:
+    #     - 10.20.1.36/24
+    # cluster8:
+    #   match:
+    #     macaddress: "ca:fe:ca:fe:02:09"
+    #   set-name: cluster8
+    #   dhcp4: false
+    #   addresses:
+    #     - 10.20.1.37/24
+    # cluster9:
+    #   match:
+    #     macaddress: "ca:fe:ca:fe:02:0a"
+    #   set-name: cluster9
+    #   dhcp4: false
+    #   addresses:
+    #     - 10.20.1.38/24
