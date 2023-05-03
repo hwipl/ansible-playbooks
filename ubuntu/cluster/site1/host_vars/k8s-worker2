@@ -3,7 +3,7 @@
 ansible_connection: ssh
 ansible_host: 10.20.201.22
 ansible_port: 22
-ansible_user: ubuntu
+ansible_user: ansible
 ansible_ssh_private_key_file: ~/cluster/cluster-ssh-key
 
 # netplan network configuration
