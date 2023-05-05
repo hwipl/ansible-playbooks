@@ -42,20 +42,20 @@ haproxy_backends:
   - mode tcp
   - balance roundrobin
   - option ssl-hello-chk
-  - server keycloak.s1.mycompany.lan 192.168.1.13:8443 check
+  - server keycloak.s1.cluster.lan 10.20.1.13:8443 check
 - name: istio-ingressgateway-servers
   config:
   - mode tcp
   - balance roundrobin
-  - server k8s-master1.s1.mycompany.lan 192.168.1.11:32196 check
-  - server k8s-master2.s1.mycompany.lan 192.168.1.21:32196 check
+  - server k8s-master1.s1.cluster.lan 10.20.1.11:32196 check
+  - server k8s-master2.s1.cluster.lan 10.20.1.21:32196 check
 - name: grafana-servers
   config:
   - mode tcp
   - balance roundrobin
-  - server monitor.s1.mycompany.lan 192.168.1.14:3000 check
+  - server monitor.s1.cluster.lan 10.20.1.14:3000 check
 - name: jenkins-servers
   config:
   - mode tcp
   - balance roundrobin
-  - server jenkins.s1.mycompany.lan 192.168.1.15:8090 check
+  - server jenkins.s1.cluster.lan 10.20.1.15:8090 check
