@@ -1,0 +1,54 @@
+---
+# ansible settings
+ansible_connection: ssh
+ansible_host: 10.20.202.15
+ansible_port: 22
+ansible_user: ansible
+ansible_ssh_private_key_file: ~/cluster/cluster-ssh-key
+
+# netplan network configuration
+netplan_config_file: 50-cloud-init.yaml
+network:
+    ethernets:
+        int0:
+            match:
+                macaddress: 52:54:00:60:2c:db
+            set-name: int0
+            mtu: 1500
+            addresses:
+            - 10.20.2.15/24
+            routes:
+              - to: default
+                via: 10.20.2.1
+              # vpn traffic
+              - to: 10.20.22.0/24
+                via: 10.20.2.1
+              # other cluster traffic
+              - to: 10.20.0.0/16
+                via: 10.20.2.201
+              # other user traffic
+              - to: 10.21.0.0/16
+                via: 10.20.2.201
+              - to: 10.22.0.0/16
+                via: 10.20.2.201
+              - to: 10.23.0.0/16
+                via: 10.20.2.201
+            nameservers:
+                addresses:
+                - 10.20.2.1
+                search:
+                - s2.cluster.lan
+                - cluster.lan
+        mgmt0:
+            match:
+                macaddress: 52:54:00:42:82:bf
+            set-name: mgmt0
+            mtu: 1500
+            addresses:
+            - 10.20.202.15/24
+            nameservers:
+                addresses:
+                - 10.20.202.10
+                search:
+                - maas
+    version: 2
