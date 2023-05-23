@@ -1,0 +1,6 @@
+---
+# sysctl settings
+
+sysctl_files:
+- src: 30-kubeflow-open-files-issue.conf.j2
+  dest: 30-kubeflow-open-files-issue.conf
