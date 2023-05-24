@@ -1,0 +1,5 @@
+---
+# common libvirt configuration
+
+libvirt_users:
+  - ansible
