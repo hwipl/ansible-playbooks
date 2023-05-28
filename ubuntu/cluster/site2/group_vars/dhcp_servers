@@ -1,0 +1,56 @@
+---
+# dhcp server configuration
+
+subnets:
+  # management
+  - ip: 10.20.202.0
+    netmask: 255.255.255.0
+    routers: 10.20.202.1
+    dns_servers: 10.20.202.1
+    ntp_servers: 10.20.202.1
+    domain_name: s2-mgmt.cluster.lan
+    hosts:
+      # hosts
+      # - name: head # static
+      #   mac: ca:fe:ca:fe:21:02
+      #   ip: 10.20.202.1
+      - name: storage
+        mac: ca:fe:ca:fe:22:02
+        ip: 10.20.202.2
+      - name: gpu
+        mac: ca:fe:ca:fe:23:01
+        ip: 10.20.202.3
+      # bmc
+      # - name: head-bmc # static
+      #   mac: ca:fe:ca:fe:21:05
+      #   ip: 10.20.202.101
+      - name: storage-bmc
+        mac: ca:fe:ca:fe:22:03
+        ip: 10.20.202.102
+      - name: gpu-bmc
+        mac: ca:fe:ca:fe:23:0b
+        ip: 10.20.202.103
+      # network
+      # - name: main-switch
+      #   mac:
+      #   ip: 10.20.202.201
+      # - name: admin-switch
+      #   mac:
+      #   ip: 10.20.202.202
+  # user facing
+  - ip: 10.20.2.0
+    netmask: 255.255.255.0
+    routers: 10.20.2.1
+    dns_servers: 10.20.2.1
+    ntp_servers: 10.20.2.1
+    domain_name: s2.cluster.lan
+    hosts:
+      # - name: head # static
+      #   mac: ca:fe:ca:fe:21:03
+      #   ip: 10.20.2.10
+      - name: storage
+        mac: ca:fe:ca:fe:22:01
+        ip: 10.20.2.20
+      - name: gpu
+        mac: ca:fe:ca:fe:23:02"
+        ip: 10.20.2.3
