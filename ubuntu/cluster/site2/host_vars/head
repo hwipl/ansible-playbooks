@@ -15,22 +15,22 @@ network:
   ethernets:
     ext0:
       match:
-        macaddress: "ca:fe:ca:fe:11:01"
+        macaddress: "ca:fe:ca:fe:21:01"
       set-name: ext0
       dhcp4: true
     mgmt0:
       match:
-        macaddress: "ca:fe:ca:fe:11:02"
+        macaddress: "ca:fe:ca:fe:21:02"
       set-name: mgmt0
       dhcp4: false
     int0:
       match:
-        macaddress: "ca:fe:ca:fe:11:03"
+        macaddress: "ca:fe:ca:fe:21:03"
       set-name: int0
       dhcp4: false
     int1:
       match:
-        macaddress: "ca:fe:ca:fe:11:04"
+        macaddress: "ca:fe:ca:fe:21:04"
       set-name: int1
       dhcp4: false
   bridges:
@@ -40,7 +40,7 @@ network:
       parameters:
         forward-delay: 15
         stp: false
-      macaddress: "ca:fe:ca:fe:11:02"
+      macaddress: "ca:fe:ca:fe:21:02"
       mtu: 1500
       dhcp4: false
       addresses:
@@ -51,7 +51,7 @@ network:
       parameters:
         forward-delay: 15
         stp: false
-      macaddress: "ca:fe:ca:fe:11:03"
+      macaddress: "ca:fe:ca:fe:21:03"
       mtu: 1500
       dhcp4: false
       addresses:
