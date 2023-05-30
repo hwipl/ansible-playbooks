@@ -16,7 +16,7 @@ network:
             parameters:
                 forward-delay: 15
                 stp: false
-            macaddress: ca:fe:ca:fe:12:01
+            macaddress: ca:fe:ca:fe:22:01
             mtu: 1500
             addresses:
             - 10.20.2.2/24
@@ -48,7 +48,7 @@ network:
             parameters:
                 forward-delay: 15
                 stp: false
-            macaddress: ca:fe:ca:fe:12:02
+            macaddress: ca:fe:ca:fe:22:02
             mtu: 1500
             addresses:
             - 10.20.202.2/24
@@ -60,12 +60,12 @@ network:
     ethernets:
         int0:
             match:
-                macaddress: ca:fe:ca:fe:12:01
+                macaddress: ca:fe:ca:fe:22:01
             set-name: int0
             mtu: 1500
         mgmt0:
             match:
-                macaddress: ca:fe:ca:fe:12:02
+                macaddress: ca:fe:ca:fe:22:02
             set-name: mgmt0
             mtu: 1500
     version: 2
