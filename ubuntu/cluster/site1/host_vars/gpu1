@@ -15,14 +15,14 @@ network:
     # interface connected to management network
     mgmt0:
       match:
-        macaddress: "ca:fe:ca:fe:02:01"
+        macaddress: "ca:fe:ca:fe:13:01"
       set-name: mgmt0
       dhcp4: false
       addresses:
         - 10.20.201.3/24
     int0:
       match:
-        macaddress: "ca:fe:ca:fe:02:02"
+        macaddress: "ca:fe:ca:fe:13:02"
       set-name: int0
       dhcp4: false
       addresses:
@@ -52,56 +52,56 @@ network:
     # other cluster NICs, 8 slots used in server: 0-3, 6-9
     # cluster0:
     #   match:
-    #     macaddress: "ca:fe:ca:fe:02:03"
+    #     macaddress: "ca:fe:ca:fe:13:03"
     #   set-name: cluster0
     #   dhcp4: false
     #   addresses:
     #     - 10.20.1.31/24
     # cluster1:
     #   match:
-    #     macaddress: "ca:fe:ca:fe:02:04"
+    #     macaddress: "ca:fe:ca:fe:13:04"
     #   set-name: cluster1
     #   dhcp4: false
     #   addresses:
     #     - 10.20.1.32/24
     # cluster2:
     #   match:
-    #     macaddress: "ca:fe:ca:fe:02:05"
+    #     macaddress: "ca:fe:ca:fe:13:05"
     #   set-name: cluster2
     #   dhcp4: false
     #   addresses:
     #     - 10.20.1.33/24
     # cluster3:
     #   match:
-    #     macaddress: "ca:fe:ca:fe:02:06"
+    #     macaddress: "ca:fe:ca:fe:13:06"
     #   set-name: cluster3
     #   dhcp4: false
     #   addresses:
     #     - 10.20.1.34/24
     # cluster6:
     #   match:
-    #     macaddress: "ca:fe:ca:fe:02:07"
+    #     macaddress: "ca:fe:ca:fe:13:07"
     #   set-name: cluster6
     #   dhcp4: false
     #   addresses:
     #     - 10.20.1.35/24
     # cluster7:
     #   match:
-    #     macaddress: "ca:fe:ca:fe:02:08"
+    #     macaddress: "ca:fe:ca:fe:13:08"
     #   set-name: cluster7
     #   dhcp4: false
     #   addresses:
     #     - 10.20.1.36/24
     # cluster8:
     #   match:
-    #     macaddress: "ca:fe:ca:fe:02:09"
+    #     macaddress: "ca:fe:ca:fe:13:09"
     #   set-name: cluster8
     #   dhcp4: false
     #   addresses:
     #     - 10.20.1.37/24
     # cluster9:
     #   match:
-    #     macaddress: "ca:fe:ca:fe:02:0a"
+    #     macaddress: "ca:fe:ca:fe:13:0a"
     #   set-name: cluster9
     #   dhcp4: false
     #   addresses:
