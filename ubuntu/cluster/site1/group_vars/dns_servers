@@ -24,7 +24,7 @@ goodclients:
 zones:
   - name: cluster.lan
     description: cluster zone
-    nameserver_ip: 10.20.2.1
+    nameserver_ip: 10.20.1.1
     contact: root.cluster.lan.
     serial: 1
     includes:   # references to actual db files, allows aliases
