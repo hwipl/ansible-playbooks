@@ -13,6 +13,7 @@ network:
         int0:
             match:
                 macaddress: 52:54:00:08:c5:71
+            set-name: int0
             mtu: 1500
             addresses:
             - 10.20.1.12/24
@@ -38,10 +39,10 @@ network:
                 search:
                 - s1.cluster.lan
                 - cluster.lan
-            set-name: int0
         mgmt0:
             match:
                 macaddress: 52:54:00:34:94:94
+            set-name: mgmt0
             mtu: 1500
             addresses:
             - 10.20.201.12/24
@@ -50,5 +51,4 @@ network:
                 - 10.20.201.10
                 search:
                 - maas
-            set-name: mgmt0
     version: 2
