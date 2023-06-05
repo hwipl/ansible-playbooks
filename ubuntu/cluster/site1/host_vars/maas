@@ -6,20 +6,21 @@ ansible_port: 22
 ansible_user: ansible
 ansible_ssh_private_key_file: ~/cluster/cluster-ssh-key
 
-netplan_config_file: 00-installer-config.yaml
+# netplan network configuration
+netplan_config_file: 10-cluster-config.yaml
 network:
   ethernets:
     enp1s0:
       dhcp4: false
       addresses:
-      - 10.20.201.10/24
+        - 10.20.201.10/24
       routes:
         - to: default
           via: 10.20.201.1
       nameservers:
         addresses:
-        - 10.20.201.1
+          - 10.20.201.1
         search:
-        - s2.cluster.lan
-        - cluster.lan
+          - s1.cluster.lan
+          - cluster.lan
   version: 2
