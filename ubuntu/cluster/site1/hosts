@@ -30,6 +30,9 @@ maas
 monitor
 storage
 
+# [dhcp_servers]
+# head
+
 [dns_servers]
 head
 
@@ -38,9 +41,10 @@ head
 
 [libvirt_hosts]
 head
+storage
 
-[smb_servers]
-head
+# [smb_servers]
+# head
 
 [wireguard_servers]
 head
