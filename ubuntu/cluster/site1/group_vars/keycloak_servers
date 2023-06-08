@@ -4,7 +4,7 @@
 keycloak_jdk: "openjdk-19-jre"
 keycloak_version: "20.0.3"
 keycloak_url: "https://github.com/keycloak/keycloak/releases/download/{{ keycloak_version }}/keycloak-{{ keycloak_version}}.tar.gz"
-keycloak_dir: "/home/ubuntu/keycloak"
+keycloak_dir: "/opt/keycloak"
 keycloak_certificate: "{{ inventory_dir }}/certs/site1-keycloak.pem"
 keycloak_privatekey: "{{ inventory_dir }}/certs/site1-keycloak.key"
 keycloak_admin: "admin"
