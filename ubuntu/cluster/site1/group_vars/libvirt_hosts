@@ -3,3 +3,5 @@
 
 libvirt_users:
   - ansible
+  - admin
+  - rescue
