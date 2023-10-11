@@ -1,0 +1,34 @@
+// access control list "good clients"
+acl goodclients {
+{% for client in goodclients %}
+    {{ client }};
+{% endfor %}
+};
+
+options {
+    // set working directory of bind
+    directory "/var/cache/bind";
+
+    // listen addresses
+    listen-on {
+{% for listen in bind_listen_on %}
+        {{ listen }};
+{% endfor %}
+    };
+    listen-on-v6 {
+{% for listen in bind_listen_on_v6 %}
+        {{ listen }};
+{% endfor %}
+    };
+
+    // forwarders
+    forwarders {
+{% for forwarder in forwarders %}
+        {{ forwarder }};
+{% endfor %}
+    };
+    forward only;
+
+    // access control with acl "good clients"
+    allow-query { goodclients; };
+};

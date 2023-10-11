@@ -1,0 +1,6 @@
+---
+- name: Configure dns servers
+  hosts: dns_servers
+
+  roles:
+    - bind
