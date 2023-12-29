@@ -1,0 +1,3 @@
+---
+# dhcp server configuration
+dhcpd_interfaces: "eth0 eth1"

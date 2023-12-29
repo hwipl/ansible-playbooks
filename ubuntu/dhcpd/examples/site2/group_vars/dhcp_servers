@@ -1,0 +1,39 @@
+---
+# dhcp server configuration
+
+subnets:
+  # site 2 network
+  - ip: 10.20.2.0
+    netmask: 255.255.255.0
+    routers: 10.20.2.1
+    dns_servers: 10.20.2.1
+    ntp_servers: 10.20.2.1
+    domain_name: s2.network.lan
+    hosts:
+      # - name: node1 # static
+      #   mac: ca:fe:ca:fe:21:01
+      #   ip: 10.20.2.1
+      - name: node2
+        mac: ca:fe:ca:fe:22:01
+        ip: 10.20.2.2
+      - name: node3
+        mac: ca:fe:ca:fe:23:01
+        ip: 10.20.2.3
+  # site 2 management network
+  - ip: 10.20.202.0
+    netmask: 255.255.255.0
+    routers: 10.20.202.1
+    dns_servers: 10.20.202.1
+    ntp_servers: 10.20.202.1
+    domain_name: s2-mgmt.network.lan
+    hosts:
+      # hosts
+      # - name: node1 # static
+      #   mac: ca:fe:ca:fe:21:0a
+      #   ip: 10.20.202.1
+      - name: node2
+        mac: ca:fe:ca:fe:22:0a
+        ip: 10.20.202.2
+      - name: node3
+        mac: ca:fe:ca:fe:23:0a
+        ip: 10.20.202.3

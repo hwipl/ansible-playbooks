@@ -1,0 +1,8 @@
+---
+# handlers for dhcpd
+
+- name: Restart dhcpd
+  become: true
+  ansible.builtin.service:
+    name: isc-dhcp-server
+    state: restarted

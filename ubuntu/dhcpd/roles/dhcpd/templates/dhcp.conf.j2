@@ -1,0 +1,19 @@
+default-lease-time 86400;
+max-lease-time 86400;
+
+{% for subnet in subnets %}
+subnet {{ subnet.ip }} netmask {{ subnet.netmask }} {
+
+        option routers                  {{ subnet.routers }};
+        option domain-name-servers      {{ subnet.dns_servers }};
+        option ntp-servers              {{ subnet.ntp_servers }};
+        option domain-name              "{{ subnet.domain_name }}";
+
+{% for host in subnet.hosts %}
+        host {{ host.name }}  {
+                hardware ethernet {{ host.mac }};
+                fixed-address {{ host.ip }};
+        }
+{% endfor %}
+}
+{% endfor %}
