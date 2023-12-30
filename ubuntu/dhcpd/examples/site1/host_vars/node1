@@ -1,3 +1,4 @@
 ---
 # dhcp server configuration
-dhcpd_interfaces: "eth0 eth1"
+dhcpd_interfaces_v4: "eth0 eth1"
+dhcpd_interfaces_v6: ""
