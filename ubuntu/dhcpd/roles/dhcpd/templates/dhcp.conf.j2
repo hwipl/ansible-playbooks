@@ -1,7 +1,7 @@
 default-lease-time 86400;
 max-lease-time 86400;
 
-{% for subnet in subnets %}
+{% for subnet in dhcpd_subnets %}
 subnet {{ subnet.ip }} netmask {{ subnet.netmask }} {
 
         option routers                  {{ subnet.routers }};
