@@ -1,5 +1,5 @@
-default-lease-time 86400;
-max-lease-time 86400;
+default-lease-time {{ dhcpd_default_lease_time }};
+max-lease-time {{ dhcpd_max_lease_time }};
 
 {% for subnet in dhcpd_subnets %}
 subnet {{ subnet.ip }} netmask {{ subnet.netmask }} {

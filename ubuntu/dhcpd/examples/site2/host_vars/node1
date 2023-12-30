@@ -2,3 +2,5 @@
 # dhcp server configuration
 dhcpd_interfaces_v4: "eth0 eth1"
 dhcpd_interfaces_v6: ""
+dhcpd_default_lease_time: 86400
+dhcpd_max_lease_time: 86400
