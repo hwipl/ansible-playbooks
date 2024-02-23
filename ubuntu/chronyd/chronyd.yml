@@ -1,0 +1,6 @@
+---
+- name: Configure ntp servers
+  hosts: ntp_servers
+
+  roles:
+    - chronyd

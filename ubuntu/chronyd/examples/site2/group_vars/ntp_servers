@@ -1,0 +1,6 @@
+---
+# ntp server configuration
+
+allows:
+  - 10.20.1.0/24
+  - 10.20.2.0/24
