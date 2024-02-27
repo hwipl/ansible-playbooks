@@ -7,6 +7,6 @@ pool 2.ubuntu.pool.ntp.org iburst
 pool 3.ubuntu.pool.ntp.org iburst
 
 # Allow access to this ntp server from the following hosts/networks
-{% for allow in allows %}
+{% for allow in chronyd_allows %}
 allow {{ allow }}
 {% endfor %}
