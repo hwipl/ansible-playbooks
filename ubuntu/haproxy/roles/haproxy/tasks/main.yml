@@ -1,0 +1,32 @@
+---
+# these tasks setup haproxy
+
+- name: Update apt cache if older than 3600 seconds
+  become: true
+  ansible.builtin.apt:
+    update_cache: true
+    cache_valid_time: 3600
+- name: Ensure haproxy is installed
+  become: true
+  ansible.builtin.apt:
+    name: haproxy
+    state: present
+- name: Copy certificates
+  become: true
+  ansible.builtin.copy:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    owner: root
+    group: root
+    mode: '0600'
+  loop: "{{ haproxy_certificates }}"
+- name: Create haproxy configuration from template
+  become: true
+  ansible.builtin.template:
+    src: haproxy.cfg.j2
+    dest: "/etc/haproxy/haproxy.cfg"
+    owner: root
+    group: root
+    mode: '0644'
+  notify:
+    - Restart haproxy
