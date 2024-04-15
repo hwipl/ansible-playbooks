@@ -36,15 +36,15 @@ haproxy_backends:
   - mode tcp
   - balance roundrobin
   - option ssl-hello-chk
-  - server a1.s2.network.lan 10.20.2.13:8443 check
+  - server a1.s2.network.lan 10.20.2.2:8443 check
 - name: B-servers
   config:
   - mode tcp
   - balance roundrobin
-  - server b1.s2.network.lan 10.20.2.11:32196 check
-  - server b2.s2.network.lan 10.20.2.21:32196 check
+  - server b1.s2.network.lan 10.20.2.3:32196 check
+  - server b2.s2.network.lan 10.20.2.4:32196 check
 - name: C-servers
   config:
   - mode tcp
   - balance roundrobin
-  - server c1.s2.network.lan 10.20.2.14:3000 check
+  - server c1.s2.network.lan 10.20.2.5:3000 check
