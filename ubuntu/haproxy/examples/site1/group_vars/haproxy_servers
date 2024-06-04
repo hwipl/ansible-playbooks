@@ -18,13 +18,13 @@ haproxy_frontends:
   - default_backend A-servers
 - name: B
   config:
-  - bind *:32196 ssl crt /etc/haproxy/site1-haproxy.pem
+  - bind *:32000 ssl crt /etc/haproxy/site1-haproxy.pem
   - option tcplog
   - mode tcp
   - default_backend B-servers
 - name: C
   config:
-  - bind *:3000 ssl crt /etc/haproxy/site1-haproxy.pem
+  - bind *:33000 ssl crt /etc/haproxy/site1-haproxy.pem
   - option tcplog
   - mode tcp
   - default_backend C-servers
@@ -41,8 +41,8 @@ haproxy_backends:
   config:
   - mode tcp
   - balance roundrobin
-  - server b1.s1.network.lan 10.20.1.3:32196 check
-  - server b2.s1.network.lan 10.20.1.4:32196 check
+  - server b1.s1.network.lan 10.20.1.3:32000 check
+  - server b2.s1.network.lan 10.20.1.4:32000 check
 - name: C-servers
   config:
   - mode tcp
