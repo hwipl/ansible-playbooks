@@ -1,0 +1,10 @@
+[Interface]
+ListenPort = {{ wireguard_listen_port }}
+Address = {{ wireguard_address }}
+PostUp = wg set %i private-key /etc/wireguard/{{ wireguard_interface }}.key
+{% for peer in wireguard_peers %}
+
+[Peer]
+PublicKey = {{ peer.public_key }}
+AllowedIPs = {{ peer.allowed_ips }}
+{% endfor %}

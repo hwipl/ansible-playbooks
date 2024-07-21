@@ -1,0 +1,6 @@
+---
+- name: Create and start wireguard servers
+  hosts: wireguard_servers
+
+  roles:
+    - wireguard

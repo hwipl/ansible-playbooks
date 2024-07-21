@@ -1,0 +1,36 @@
+---
+# wireguard configuration
+# Server IP 10.20.21.1
+wireguard_interface: "wg0"
+wireguard_listen_port: 51000
+wireguard_address: 10.20.21.1/24
+wireguard_private_key_file: "~/wireguard/site1/server-private.key"
+wireguard_public_key_file: "~/wireguard/site1/server-public.key"
+wireguard_peers:
+  # Client IP 10.20.21.2:
+  - name: client1
+    # server side
+    public_key: 55BbgL/uvNBfaXko8UodGy93DnaQfiWDWaDCuPhh1z4=
+    allowed_ips: 10.20.21.2
+    # client side
+    client_address: 10.20.21.2/24
+    client_endpoint: vpn.s1.lan:51000
+    client_allowed_ips: "10.20.1.0/24, 10.20.21.0/24, 10.20.2.0/24, 10.20.22.0/24"
+  # Client IP 10.20.21.3:
+  - name: client2
+    # server side
+    public_key: OinFs2iWV0/X3jDmsjnhAJLZP/127E8Ly13URQQB7BM=
+    allowed_ips: 10.20.21.3
+    # client side
+    client_address: 10.20.21.3/24
+    client_endpoint: vpn.s1.lan:51000
+    client_allowed_ips: "10.20.1.0/24, 10.20.21.0/24, 10.20.2.0/24, 10.20.22.0/24"
+  # Client IP 10.20.21.4:
+  - name: client3
+    # server side
+    public_key: KqvsNv2Nppt37z3BGIFOZIwfA3QcnNsEqRfTCcNiERY=
+    allowed_ips: 10.20.21.4
+    # client side
+    client_address: 10.20.21.4/24
+    client_endpoint: vpn.s1.lan:51000
+    client_allowed_ips: "10.20.1.0/24, 10.20.21.0/24, 10.20.2.0/24, 10.20.22.0/24"

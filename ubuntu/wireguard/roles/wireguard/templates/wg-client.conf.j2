@@ -1,0 +1,10 @@
+[Interface]
+ListenPort = {{ wireguard_listen_port }}
+Address = {{ item.client_address }}
+# PrivateKey = INSERT_YOUR_PRIVATE_KEY_HERE
+PostUp = wg set %i private-key /etc/wireguard/{{ wireguard_interface }}.key
+
+[Peer]
+PublicKey = {{ wireguard_public_key }}
+Endpoint = {{ item.client_endpoint }}
+AllowedIPs = {{ item.client_allowed_ips }}

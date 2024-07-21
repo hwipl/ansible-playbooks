@@ -1,0 +1,58 @@
+---
+# these tasks install and configure wireguard servers
+
+- name: Update apt cache if older than 3600 seconds
+  become: true
+  ansible.builtin.apt:
+    update_cache: true
+    cache_valid_time: 3600
+- name: Ensure wireguard is installed
+  become: true
+  ansible.builtin.apt:
+    name: wireguard
+    state: present
+- name: Copy wireguard server key file
+  become: true
+  ansible.builtin.copy:
+    src: "{{ wireguard_private_key_file }}"
+    dest: "/etc/wireguard/{{ wireguard_interface }}.key"
+    owner: root
+    group: root
+    mode: '0600'
+  notify: Restart wireguard
+- name: Create wireguard server config file
+  become: true
+  ansible.builtin.template:
+    src: wg.conf.j2
+    dest: "/etc/wireguard/{{ wireguard_interface }}.conf"
+    owner: root
+    group: root
+    mode: '0600'
+  notify: Restart wireguard
+- name: Enable wireguard connection
+  become: true
+  ansible.builtin.service:
+    name: "wg-quick@{{ wireguard_interface }}"
+    enabled: true
+  notify: Restart wireguard
+- name: Create local directory for wireguard client configs
+  ansible.builtin.file:
+    path: "{{ inventory_dir }}/wireguard-clients"
+    mode: '0750'
+    state: directory
+  delegate_to: localhost
+  connection: local
+  become: false
+  run_once: true
+- name: Create local wireguard client configs
+  vars:
+    wireguard_public_key: "{{ lookup('file', wireguard_public_key_file) }}"
+  ansible.builtin.template:
+    src: wg-client.conf.j2
+    dest: "{{ inventory_dir}}/wireguard-clients/{{ item.name }}.conf"
+    mode: '0600'
+  loop: "{{ wireguard_peers }}"
+  delegate_to: localhost
+  connection: local
+  become: false
+  run_once: true
