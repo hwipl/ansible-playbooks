@@ -1,0 +1,4 @@
+---
+# smb server configuration
+samba_path: "/srv/samba/guest"
+samba_share: "guest"
