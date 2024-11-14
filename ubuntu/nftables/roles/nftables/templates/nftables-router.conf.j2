@@ -1,0 +1,55 @@
+#!/usr/sbin/nft -f
+
+table inet fw_router_filter
+delete table inet fw_router_filter
+table inet fw_router_filter {
+    chain input_internal {
+        # filter rules for incoming traffic on internal network interface
+
+        # allow incoming ICMPv4 traffic
+        ip protocol icmp accept comment "allow icmp"
+
+        # allow incoming ICMPv6 traffic
+        meta l4proto ipv6-icmp accept comment "allow icmp v6"
+
+        # allow incoming SSH connections
+        tcp dport ssh accept comment "allow sshd"
+    }
+
+    chain input {
+        # filter rules for incoming traffic, drop everything by default
+        type filter hook input priority 0; policy drop;
+
+        # allow incoming traffic that was initiated by this node
+        ct state {established, related} accept comment "allow tracked connections"
+
+        # allow incoming traffic on loopback interface
+        iif lo accept comment "allow from loopback"
+
+        # check incoming traffic on internal network interface
+        iifname {{ nftables_int_ifs }} jump input_internal
+    }
+
+    chain forward {
+        # filter rules for forwarding traffic, drop everything by default
+        type filter hook forward priority 0; policy drop;
+
+        # allow traffic that was initiated from the internal network
+        ct state {established, related} accept comment "allow tracked connections"
+
+        # allow traffic from internal network
+        iifname {{ nftables_int_ifs }} accept comment "allow from internal interface"
+    }
+}
+
+table inet fw_router_nat
+delete table inet fw_router_nat
+table inet fw_router_nat {
+    chain postrouting {
+        # NAT rules for outgoing traffic
+        type nat hook postrouting priority srcnat; policy accept;
+
+        # NAT outgoing traffic on external network interface
+        oifname {{ nftables_ext_ifs }} counter masquerade comment "masquerade outgoing"
+    }
+}

@@ -1,0 +1,6 @@
+---
+- name: Configure nftables
+  hosts: nftables_hosts
+
+  roles:
+    - nftables

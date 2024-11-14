@@ -1,0 +1,25 @@
+#!/usr/bin/nft -f
+
+table inet fw_client_filter
+delete table inet fw_client_filter
+table inet fw_client_filter {
+    chain input {
+        # filter rules for incoming traffic, drop everything by default
+        type filter hook input priority filter; policy drop;
+
+        # allow incoming traffic that was initiated by this node
+        ct state {established, related} accept comment "allow tracked connections"
+
+        # allow incoming traffic on loopback interface
+        iif lo accept comment "allow from loopback"
+
+        # allow incoming ICMPv4 traffic
+        ip protocol icmp accept comment "allow icmp"
+
+        # allow incoming ICMPv6 traffic
+        meta l4proto ipv6-icmp accept comment "allow icmp v6"
+
+        # allow incoming SSH connections
+        tcp dport ssh accept comment "allow sshd"
+    }
+}

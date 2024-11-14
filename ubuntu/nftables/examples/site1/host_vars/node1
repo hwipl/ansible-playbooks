@@ -1,0 +1,3 @@
+---
+# nftables configuration
+nftables_conf: "nftables-router.conf.j2"

@@ -1,0 +1,29 @@
+---
+# these tasks setup nftables
+
+- name: Update apt cache if older than 3600 seconds
+  become: true
+  ansible.builtin.apt:
+    update_cache: true
+    cache_valid_time: 3600
+- name: Ensure nftables is installed
+  become: true
+  ansible.builtin.apt:
+    name: nftables
+    state: present
+- name: Ensure nftables service is enabled
+  become: true
+  ansible.builtin.service:
+    name: nftables
+    enabled: true
+- name: Create nftables configuration from template
+  become: true
+  ansible.builtin.template:
+    src: "{{ nftables_conf }}"
+    dest: "/etc/nftables.conf"
+    owner: root
+    group: root
+    mode: '0644'
+    backup: true
+  notify:
+    - Restart nftables
