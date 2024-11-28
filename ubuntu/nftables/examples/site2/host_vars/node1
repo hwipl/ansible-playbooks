@@ -1,3 +1,6 @@
 ---
 # nftables configuration
 nftables_conf: "nftables-router.conf.j2"
+nftables_table: "fw_router"
+nftables_int_ifs: "int0"
+nftables_ext_ifs: "ext0"

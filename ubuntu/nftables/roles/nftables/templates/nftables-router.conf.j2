@@ -1,8 +1,8 @@
 #!/usr/sbin/nft -f
 
-table inet fw_router_filter
-delete table inet fw_router_filter
-table inet fw_router_filter {
+table inet {{ nftables_table }}
+delete table inet {{ nftables_table }}
+table inet {{ nftables_table }} {
     chain input_internal {
         # filter rules for incoming traffic on internal network interface
 
@@ -40,11 +40,7 @@ table inet fw_router_filter {
         # allow traffic from internal network
         iifname {{ nftables_int_ifs }} accept comment "allow from internal interface"
     }
-}
 
-table inet fw_router_nat
-delete table inet fw_router_nat
-table inet fw_router_nat {
     chain postrouting {
         # NAT rules for outgoing traffic
         type nat hook postrouting priority srcnat; policy accept;
