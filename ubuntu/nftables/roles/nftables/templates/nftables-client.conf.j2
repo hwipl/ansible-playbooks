@@ -1,8 +1,8 @@
 #!/usr/bin/nft -f
 
-table inet fw_client_filter
-delete table inet fw_client_filter
-table inet fw_client_filter {
+table inet {{ nftables_table }}
+delete table inet {{ nftables_table }}
+table inet {{ nftables_table }} {
     chain input {
         # filter rules for incoming traffic, drop everything by default
         type filter hook input priority filter; policy drop;
