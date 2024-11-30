@@ -1,3 +1,4 @@
 ---
 # nftables configuration
 nftables_conf: "{{ inventory_dir }}/nftables/nftables-other.conf.j2"
+nftables_table: "fw_other"
